@@ -3,6 +3,9 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 
+// mongoose connection
+require("./configs/mongoose");
+
 app.use(express.urlencoded({ extended: true }));
 
 // looks for body in json
