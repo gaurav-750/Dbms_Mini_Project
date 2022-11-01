@@ -1,53 +1,21 @@
 const express = require("express");
-const Workout = require("../models/workout");
+
 const router = express.Router();
+const workoutController = require("../controllers/workoutController");
 
 //* Get all Workouts:
-router.get("/", function (req, res) {
-  return res.json({
-    Message: "Welcome to Gym Tracker App",
-  });
-});
+router.get("/", workoutController.getAllWorkouts);
 
 //* Get a single Workout:
-router.get("/:id", (req, res) => {
-  return res.json({
-    Message: "Get a single workout",
-  });
-});
+router.get("/:id", workoutController.getWorkout);
 
 //* Post a single Workout:
-router.post("/", async (req, res) => {
-  const { title, reps, load } = req.body;
-  console.log(title, reps, load);
-
-  try {
-    const workout = await Workout.create({ title, reps, load });
-    console.log("Added a new workout", workout);
-
-    return res.status(200).json({
-      Workout: workout,
-    });
-  } catch (error) {
-    console.log("Error in adding Workout", error);
-    return res.status(400).json({
-      error: error.message,
-    });
-  }
-});
+router.post("/", workoutController.createWorkout);
 
 //* Delete a single Workout:
-router.delete("/:id", (req, res) => {
-  return res.json({
-    Message: "Delete a workout",
-  });
-});
+router.delete("/:id", workoutController.deleteWorkout);
 
 //* Update a single Workout:
-router.patch("/:id", (req, res) => {
-  return res.json({
-    Message: "Update a workout",
-  });
-});
+router.patch("/:id", workoutController.updateWorkout);
 
 module.exports = router;
